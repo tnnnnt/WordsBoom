@@ -94,8 +94,8 @@ class MySystemTrayIcon(QSystemTrayIcon):  # 系统托盘图标类
         QCoreApplication.instance().quit()
 
     def select(self):
-        self.sw = ShowWords()
         self.a1.setEnabled(False)
+        self.sw = ShowWords()
         self.sw.exec()
 
     def leftAct(self, reason):

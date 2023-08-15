@@ -1,7 +1,7 @@
 import json
 import random
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QDialog, QVBoxLayout, QScrollArea, QWidget
+from PyQt5.QtWidgets import QDialog, QVBoxLayout, QScrollArea, QWidget, QApplication
 import publicData
 from oneWord import OneWord
 
@@ -47,6 +47,7 @@ class ShowWords(QDialog):
         self.hard_words, self.del_words = [], []
         self.setWindowModality(Qt.ApplicationModal)  # 设置为应用程序级别的模态对话框
         self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)  # 始终在前面
+        QApplication.beep()  # 系统提示音
 
     def closeEvent(self, event):
         # 窗口关闭时被调用
