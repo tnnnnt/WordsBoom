@@ -45,6 +45,8 @@ class ShowWords(QDialog):
                 self.verticalLayout_2.addWidget(OneWord(hard_words[i]))
             self.ow_count = publicData.settings['number']
         self.hard_words, self.del_words = [], []
+        self.setWindowModality(Qt.ApplicationModal)  # 设置为应用程序级别的模态对话框
+        self.setWindowFlags(self.windowFlags() | Qt.WindowStaysOnTopHint)  # 始终在前面
 
     def closeEvent(self, event):
         # 窗口关闭时被调用

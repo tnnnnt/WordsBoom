@@ -29,7 +29,7 @@ class MySystemTrayIcon(QSystemTrayIcon):  # 系统托盘图标类
     def __init__(self):
         super(MySystemTrayIcon, self).__init__()
         self.se = None
-        self.sw = ShowWords()
+        self.sw = None
         self.setIcon(publicData.icon)
         self.setToolTip(
             "单词弹弹弹\n间隔分钟数: " + str(publicData.settings['minute']) + "\n单次单词数: " + str(publicData.settings['number']))
@@ -96,7 +96,7 @@ class MySystemTrayIcon(QSystemTrayIcon):  # 系统托盘图标类
     def select(self):
         self.sw = ShowWords()
         self.a1.setEnabled(False)
-        self.sw.show()
+        self.sw.exec()
 
     def leftAct(self, reason):
         # 鼠标点击icon传递的信号会带有一个整形的值，1是表示单击右键，2是双击，3是单击左键，4是用鼠标中键点击
