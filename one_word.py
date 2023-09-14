@@ -80,7 +80,7 @@ class OneWord(QWidget):
     # 不认识
     def btn_disunderstand(self):
         pdt.words[self.word][0] += disunderstand
-        pdt.hard_words[self.word] = pdt.streak
+        pdt.hard_words[self.word] = pdt.settings['streak']
         # 更新困难词
         with open('hard_words.json', 'w', encoding='utf-8') as f:
             json.dump(pdt.hard_words, f, ensure_ascii=False)
@@ -90,7 +90,7 @@ class OneWord(QWidget):
     # 模糊
     def btn_fuzzy(self):
         pdt.words[self.word][0] += fuzzy
-        pdt.hard_words[self.word] = pdt.streak
+        pdt.hard_words[self.word] = pdt.settings['streak']
         # 更新困难词
         with open('hard_words.json', 'w', encoding='utf-8') as f:
             json.dump(pdt.hard_words, f, ensure_ascii=False)

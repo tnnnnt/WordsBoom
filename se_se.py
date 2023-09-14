@@ -49,25 +49,38 @@ class SeSe(QDialog):  # 设置
         self.sb_size.setMaximum(360)
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.sb_size)
 
+        self.label_4 = QLabel(self)
+        self.label_4.setFont(font)
+        self.label_4.setAlignment(Qt.AlignCenter)
+        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.label_4)
+
+        self.sb_streak = QSpinBox(self)
+        self.sb_streak.setAlignment(Qt.AlignCenter)
+        self.sb_streak.setMinimum(1)
+        self.sb_streak.setMaximum(20)
+        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.sb_streak)
+
         self.cb_confirm = QCheckBox(self)
         self.cb_confirm.setText("完全认识的确认")
         self.cb_confirm.setFont(font)
         self.cb_confirm.setTristate(False)  # 设置为不允许第三种状态
-        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.cb_confirm)
+        self.formLayout.setWidget(4, QFormLayout.LabelRole, self.cb_confirm)
 
         self.sb_min.setValue(pdt.settings['minute'])
         self.sb_num.setValue(pdt.settings['number'])
         self.sb_size.setValue(pdt.settings['pointsize'])
+        self.sb_streak.setValue(pdt.settings['streak'])
         self.cb_confirm.setChecked(pdt.settings['confirm'])
 
         self.setWindowTitle("设置")
         self.label.setText("间隔分钟数")
         self.label_2.setText("单次单词数")
         self.label_3.setText("字体大小")
+        self.label_4.setText("连续认识次数")
 
         self.btn_reset_w = QPushButton("重置单词权重", self)
         self.btn_reset_w.setFont(font)
-        self.formLayout.setWidget(4, QFormLayout.LabelRole, self.btn_reset_w)
+        self.formLayout.setWidget(5, QFormLayout.LabelRole, self.btn_reset_w)
         self.btn_reset_w.clicked.connect(self.reset_w)
 
     def reset_w(self):
@@ -97,6 +110,7 @@ class SeSe(QDialog):  # 设置
         pdt.settings['minute'] = self.sb_min.value()
         pdt.settings['number'] = self.sb_num.value()
         pdt.settings['pointsize'] = self.sb_size.value()
+        pdt.settings['streak'] = self.sb_streak.value()
         pdt.settings['confirm'] = self.cb_confirm.isChecked()
         with open('settings.json', 'w', encoding='utf-8') as f:
             json.dump(pdt.settings, f, ensure_ascii=False)
