@@ -2,7 +2,7 @@ import csv
 import json
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QDialog, QLabel, QFormLayout, QSpinBox, QMessageBox, QPushButton
+from PyQt5.QtWidgets import QDialog, QLabel, QFormLayout, QSpinBox, QMessageBox, QPushButton, QCheckBox
 import public_data as pdt
 
 
@@ -49,9 +49,16 @@ class SeSe(QDialog):  # 设置
         self.sb_size.setMaximum(360)
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.sb_size)
 
+        self.cb_confirm = QCheckBox(self)
+        self.cb_confirm.setText("完全认识的确认")
+        self.cb_confirm.setFont(font)
+        self.cb_confirm.setTristate(False)  # 设置为不允许第三种状态
+        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.cb_confirm)
+
         self.sb_min.setValue(pdt.settings['minute'])
         self.sb_num.setValue(pdt.settings['number'])
         self.sb_size.setValue(pdt.settings['pointsize'])
+        self.cb_confirm.setChecked(pdt.settings['confirm'])
 
         self.setWindowTitle("设置")
         self.label.setText("间隔分钟数")
@@ -60,7 +67,7 @@ class SeSe(QDialog):  # 设置
 
         self.btn_reset_w = QPushButton("重置单词权重", self)
         self.btn_reset_w.setFont(font)
-        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.btn_reset_w)
+        self.formLayout.setWidget(4, QFormLayout.LabelRole, self.btn_reset_w)
         self.btn_reset_w.clicked.connect(self.reset_w)
 
     def reset_w(self):
@@ -90,6 +97,7 @@ class SeSe(QDialog):  # 设置
         pdt.settings['minute'] = self.sb_min.value()
         pdt.settings['number'] = self.sb_num.value()
         pdt.settings['pointsize'] = self.sb_size.value()
+        pdt.settings['confirm'] = self.cb_confirm.isChecked()
         with open('settings.json', 'w', encoding='utf-8') as f:
             json.dump(pdt.settings, f, ensure_ascii=False)
         pdt.tp.setToolTip("单词弹弹弹\n间隔分钟数: " + str(pdt.settings['minute']) + "\n单次单词数: " + str(

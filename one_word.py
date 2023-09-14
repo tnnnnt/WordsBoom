@@ -1,7 +1,7 @@
 import json
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QSizePolicy, QLabel, QPushButton
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QSizePolicy, QLabel, QPushButton, QMessageBox
 import public_data as pdt
 
 disunderstand, fuzzy, know = 10, 2, -5  # 权重变化
@@ -114,6 +114,11 @@ class OneWord(QWidget):
 
     # 完全认识
     def del_word(self):
+        if pdt.settings['confirm']:
+            ans = QMessageBox.question(self, "提示", "你真的完全认识了吗？", QMessageBox.Yes | QMessageBox.No,
+                                       QMessageBox.No)
+            if ans == QMessageBox.No:
+                return
         pdt.easy_words[self.word] = pdt.words[self.word][1]
         with open('easy_words.json', 'w', encoding='utf-8') as f:
             json.dump(pdt.easy_words, f, ensure_ascii=False)
