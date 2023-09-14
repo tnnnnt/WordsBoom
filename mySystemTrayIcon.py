@@ -7,7 +7,7 @@ from showWords import ShowWords
 from work import Work
 
 
-def showWordsFile():
+def show_words_file():
     file_path = "words.csv"
     url = QUrl.fromLocalFile(file_path)
     QDesktopServices.openUrl(url)
@@ -35,22 +35,22 @@ class MySystemTrayIcon(QSystemTrayIcon):  # 系统托盘图标类
         self.tpMenu.addAction(self.a_exit)
         self.setContextMenu(self.tpMenu)
 
-        self.a1.triggered.connect(self.startOrStop)
-        self.a2.triggered.connect(self.setSet)
-        self.a3.triggered.connect(showWordsFile)
-        self.a_exit.triggered.connect(self.quitApp)
+        self.a1.triggered.connect(self.start_or_stop)
+        self.a2.triggered.connect(self.set_set)
+        self.a3.triggered.connect(show_words_file)
+        self.a_exit.triggered.connect(self.quit_app)
 
         # 线程控制
         self.timer = QTimer()
         self.thread = QThread()
         self.work = Work()
         self.work.moveToThread(self.thread)
-        self.timer.timeout.connect(self.work.doWork)
+        self.timer.timeout.connect(self.work.do_work)
         self.work.signal.connect(self.select)
         self.work.signal.connect(self.timer.stop)
-        self.activated.connect(self.leftAct)
+        self.activated.connect(self.left_act)
 
-    def startOrStop(self):
+    def start_or_stop(self):
         if self.a1.text() == '启动':
             self.a1.setText('暂停')
             self.thread.start()
@@ -61,12 +61,12 @@ class MySystemTrayIcon(QSystemTrayIcon):  # 系统托盘图标类
             self.thread.quit()
             self.thread.wait()
 
-    def setSet(self):
+    def set_set(self):
         self.a2.setEnabled(False)
         self.se = SeSe()
         self.se.show()
 
-    def quitApp(self):
+    def quit_app(self):
         # 关闭窗体程序
         self.setVisible(False)
         QCoreApplication.instance().quit()
@@ -76,7 +76,7 @@ class MySystemTrayIcon(QSystemTrayIcon):  # 系统托盘图标类
         self.sw = ShowWords()
         self.sw.exec()
 
-    def leftAct(self, reason):
+    def left_act(self, reason):
         # 鼠标点击icon传递的信号会带有一个整形的值，1是表示单击右键，2是双击，3是单击左键，4是用鼠标中键点击
         if reason == 3:
-            self.setSet()
+            self.set_set()

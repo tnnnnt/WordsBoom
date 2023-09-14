@@ -17,45 +17,45 @@ class OneWord(QWidget):
 
         font = QFont()
         font.setPointSize(pDt.settings['pointsize'])
-        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Minimum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
+        size_policy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Minimum)
+        size_policy.setHorizontalStretch(0)
+        size_policy.setVerticalStretch(0)
 
         self.label = QLabel(self)
-        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
-        self.label.setSizePolicy(sizePolicy)
+        size_policy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(size_policy)
         self.label.setFont(font)
         self.label.setTextFormat(Qt.AutoText)
         self.label.setAlignment(Qt.AlignCenter)
         self.horizontalLayout.addWidget(self.label)
 
         self.pushButton = QPushButton(self)
-        sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-        self.pushButton.setSizePolicy(sizePolicy)
+        size_policy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
+        self.pushButton.setSizePolicy(size_policy)
         self.pushButton.setFont(font)
         self.horizontalLayout.addWidget(self.pushButton)
 
         self.pushButton_2 = QPushButton(self)
-        sizePolicy.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
-        self.pushButton_2.setSizePolicy(sizePolicy)
+        size_policy.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
+        self.pushButton_2.setSizePolicy(size_policy)
         self.pushButton_2.setFont(font)
         self.horizontalLayout.addWidget(self.pushButton_2)
 
         self.pushButton_3 = QPushButton(self)
-        sizePolicy.setHeightForWidth(self.pushButton_3.sizePolicy().hasHeightForWidth())
-        self.pushButton_3.setSizePolicy(sizePolicy)
+        size_policy.setHeightForWidth(self.pushButton_3.sizePolicy().hasHeightForWidth())
+        self.pushButton_3.setSizePolicy(size_policy)
         self.pushButton_3.setFont(font)
         self.horizontalLayout.addWidget(self.pushButton_3)
 
         self.pushButton_4 = QPushButton(self)
-        sizePolicy.setHeightForWidth(self.pushButton_4.sizePolicy().hasHeightForWidth())
-        self.pushButton_4.setSizePolicy(sizePolicy)
+        size_policy.setHeightForWidth(self.pushButton_4.sizePolicy().hasHeightForWidth())
+        self.pushButton_4.setSizePolicy(size_policy)
         self.pushButton_4.setFont(font)
         self.horizontalLayout.addWidget(self.pushButton_4)
 
         self.pushButton_5 = QPushButton(self)
-        sizePolicy.setHeightForWidth(self.pushButton_5.sizePolicy().hasHeightForWidth())
-        self.pushButton_5.setSizePolicy(sizePolicy)
+        size_policy.setHeightForWidth(self.pushButton_5.sizePolicy().hasHeightForWidth())
+        self.pushButton_5.setSizePolicy(size_policy)
         self.pushButton_5.setFont(font)
         self.horizontalLayout.addWidget(self.pushButton_5)
 
@@ -66,14 +66,14 @@ class OneWord(QWidget):
         self.pushButton_4.setText("认识")
         self.pushButton_5.setText("完全认识")
 
-        self.pushButton.clicked.connect(self.showCn)
+        self.pushButton.clicked.connect(self.show_cn)
         self.pushButton_2.clicked.connect(self.btn_disunderstand)
         self.pushButton_3.clicked.connect(self.btn_fuzzy)
         self.pushButton_4.clicked.connect(self.btn_know)
         self.pushButton_5.clicked.connect(self.del_word)
 
     # 查看中文
-    def showCn(self):
+    def show_cn(self):
         self.pushButton.setText(pDt.words[self.word][1])
         self.pushButton.setEnabled(False)
 

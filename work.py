@@ -7,5 +7,5 @@ class Work(QObject):
     def __init__(self):
         super(QObject, self).__init__()
 
-    def doWork(self):
+    def do_work(self):
         self.signal.emit()
