@@ -81,6 +81,8 @@ class SeSe(QDialog):  # 设置
                 # 写入数据行
                 for english, (weight, chinese) in pDt.words.items():
                     csv_writer.writerow({'英文': english, '权重': weight, '中文': chinese})
+            pDt.tp.setToolTip("单词弹弹弹\n间隔分钟数: " + str(pDt.settings['minute']) + "\n单次单词数: " + str(
+                pDt.settings['number']) + "\n剩余单词数: " + str(len(pDt.words)))
             with open('easy_words.json', 'w', encoding='utf-8') as f:
                 json.dump({}, f, ensure_ascii=False)
 
@@ -90,6 +92,6 @@ class SeSe(QDialog):  # 设置
         pDt.settings['pointsize'] = self.sb_size.value()
         with open('settings.json', 'w', encoding='utf-8') as f:
             json.dump(pDt.settings, f, ensure_ascii=False)
-        pDt.tp.setToolTip(
-            "单词弹弹弹\n间隔分钟数: " + str(pDt.settings['minute']) + "\n单次单词数: " + str(pDt.settings['number']))
+        pDt.tp.setToolTip("单词弹弹弹\n间隔分钟数: " + str(pDt.settings['minute']) + "\n单次单词数: " + str(
+            pDt.settings['number']) + "\n剩余单词数: " + str(len(pDt.words)))
         pDt.tp.a2.setEnabled(True)

@@ -19,8 +19,8 @@ class MySystemTrayIcon(QSystemTrayIcon):  # 系统托盘图标类
         self.se = None
         self.sw = None
         self.setIcon(pDt.icon)
-        self.setToolTip(
-            "单词弹弹弹\n间隔分钟数: " + str(pDt.settings['minute']) + "\n单次单词数: " + str(pDt.settings['number']))
+        self.setToolTip("单词弹弹弹\n间隔分钟数: " + str(pDt.settings['minute']) + "\n单次单词数: " + str(
+            pDt.settings['number']) + "\n剩余单词数: " + str(len(pDt.words)))
 
         self.tpMenu = QMenu()
         self.a1 = QAction('启动')
