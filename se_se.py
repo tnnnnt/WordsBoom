@@ -3,13 +3,13 @@ import json
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QDialog, QLabel, QFormLayout, QSpinBox, QMessageBox, QPushButton
-import public_data as pDt
+import public_data as pdt
 
 
 class SeSe(QDialog):  # 设置
     def __init__(self):
         super(QDialog, self).__init__()
-        self.setWindowIcon(pDt.icon)
+        self.setWindowIcon(pdt.icon)
         self.resize(200, 120)
         self.formLayout = QFormLayout(self)
 
@@ -49,9 +49,9 @@ class SeSe(QDialog):  # 设置
         self.sb_size.setMaximum(360)
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.sb_size)
 
-        self.sb_min.setValue(pDt.settings['minute'])
-        self.sb_num.setValue(pDt.settings['number'])
-        self.sb_size.setValue(pDt.settings['pointsize'])
+        self.sb_min.setValue(pdt.settings['minute'])
+        self.sb_num.setValue(pdt.settings['number'])
+        self.sb_size.setValue(pdt.settings['pointsize'])
 
         self.setWindowTitle("设置")
         self.label.setText("间隔分钟数")
@@ -67,31 +67,31 @@ class SeSe(QDialog):  # 设置
         ans = QMessageBox.question(self, "警告", "此操作不可逆！\n是否坚持执行重置单词权重？", QMessageBox.Yes | QMessageBox.No,
                                    QMessageBox.No)
         if ans == QMessageBox.Yes:
-            for word in pDt.words:
-                pDt.words[word][0] = pDt.init_w
+            for word in pdt.words:
+                pdt.words[word][0] = pdt.init_w
             with open('easy_words.json', encoding='utf-8') as f:
                 add_words = json.load(f)
             for word in add_words:
-                pDt.words[word] = [pDt.init_w, pDt.easy_words[word]]
+                pdt.words[word] = [pdt.init_w, pdt.easy_words[word]]
             with open('words.csv', 'w', newline='', encoding='utf-8') as file:
                 fieldnames = ['英文', '权重', '中文']
                 csv_writer = csv.DictWriter(file, fieldnames=fieldnames)
                 # 写入CSV文件的标题行
                 csv_writer.writeheader()
                 # 写入数据行
-                for english, (weight, chinese) in pDt.words.items():
+                for english, (weight, chinese) in pdt.words.items():
                     csv_writer.writerow({'英文': english, '权重': weight, '中文': chinese})
-            pDt.tp.setToolTip("单词弹弹弹\n间隔分钟数: " + str(pDt.settings['minute']) + "\n单次单词数: " + str(
-                pDt.settings['number']) + "\n剩余单词数: " + str(len(pDt.words)))
+            pdt.tp.setToolTip("单词弹弹弹\n间隔分钟数: " + str(pdt.settings['minute']) + "\n单次单词数: " + str(
+                pdt.settings['number']) + "\n剩余单词数: " + str(len(pdt.words)))
             with open('easy_words.json', 'w', encoding='utf-8') as f:
                 json.dump({}, f, ensure_ascii=False)
 
     def closeEvent(self, event):
-        pDt.settings['minute'] = self.sb_min.value()
-        pDt.settings['number'] = self.sb_num.value()
-        pDt.settings['pointsize'] = self.sb_size.value()
+        pdt.settings['minute'] = self.sb_min.value()
+        pdt.settings['number'] = self.sb_num.value()
+        pdt.settings['pointsize'] = self.sb_size.value()
         with open('settings.json', 'w', encoding='utf-8') as f:
-            json.dump(pDt.settings, f, ensure_ascii=False)
-        pDt.tp.setToolTip("单词弹弹弹\n间隔分钟数: " + str(pDt.settings['minute']) + "\n单次单词数: " + str(
-            pDt.settings['number']) + "\n剩余单词数: " + str(len(pDt.words)))
-        pDt.tp.a2.setEnabled(True)
+            json.dump(pdt.settings, f, ensure_ascii=False)
+        pdt.tp.setToolTip("单词弹弹弹\n间隔分钟数: " + str(pdt.settings['minute']) + "\n单次单词数: " + str(
+            pdt.settings['number']) + "\n剩余单词数: " + str(len(pdt.words)))
+        pdt.tp.a2.setEnabled(True)

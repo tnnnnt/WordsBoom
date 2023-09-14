@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QTimer, QThread, QCoreApplication, QUrl
 from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import QSystemTrayIcon, QMenu, QAction
-import public_data as pDt
+import public_data as pdt
 from se_se import SeSe
 from show_words import ShowWords
 from work import Work
@@ -18,9 +18,9 @@ class MySystemTrayIcon(QSystemTrayIcon):  # 系统托盘图标类
         super(MySystemTrayIcon, self).__init__()
         self.se = None
         self.sw = None
-        self.setIcon(pDt.icon)
-        self.setToolTip("单词弹弹弹\n间隔分钟数: " + str(pDt.settings['minute']) + "\n单次单词数: " + str(
-            pDt.settings['number']) + "\n剩余单词数: " + str(len(pDt.words)))
+        self.setIcon(pdt.icon)
+        self.setToolTip("单词弹弹弹\n间隔分钟数: " + str(pdt.settings['minute']) + "\n单次单词数: " + str(
+            pdt.settings['number']) + "\n剩余单词数: " + str(len(pdt.words)))
 
         self.tpMenu = QMenu()
         self.a1 = QAction('启动')
