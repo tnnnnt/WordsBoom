@@ -2,7 +2,7 @@ import json
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QSizePolicy, QLabel, QPushButton
-import publicData as pDt
+import public_data as pDt
 
 disunderstand, fuzzy, know = 10, 2, -5  # 权重变化
 

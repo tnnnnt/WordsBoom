@@ -3,8 +3,8 @@ import json
 import random
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QScrollArea, QWidget, QApplication
-import publicData as pDt
-from oneWord import OneWord
+import public_data as pDt
+from one_word import OneWord
 
 
 class ShowWords(QDialog):

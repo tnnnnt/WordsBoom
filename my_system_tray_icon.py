@@ -1,9 +1,9 @@
 from PyQt5.QtCore import QTimer, QThread, QCoreApplication, QUrl
 from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtWidgets import QSystemTrayIcon, QMenu, QAction
-import publicData as pDt
-from seSe import SeSe
-from showWords import ShowWords
+import public_data as pDt
+from se_se import SeSe
+from show_words import ShowWords
 from work import Work
 
 

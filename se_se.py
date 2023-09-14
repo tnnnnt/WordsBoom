@@ -3,7 +3,7 @@ import json
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QDialog, QLabel, QFormLayout, QSpinBox, QMessageBox, QPushButton
-import publicData as pDt
+import public_data as pDt
 
 
 class SeSe(QDialog):  # 设置

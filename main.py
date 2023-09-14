@@ -2,8 +2,8 @@ import json
 import sys
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
-import publicData as pDt
-from mySystemTrayIcon import MySystemTrayIcon
+import public_data as pDt
+from my_system_tray_icon import MySystemTrayIcon
 import csv
 
 if __name__ == '__main__':
