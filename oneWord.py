@@ -2,7 +2,8 @@ import json
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QSizePolicy, QLabel, QPushButton
-import publicData
+import publicData as pDt
+
 disunderstand, fuzzy, know = 10, 2, -5  # 权重变化
 
 
@@ -15,7 +16,7 @@ class OneWord(QWidget):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
 
         font = QFont()
-        font.setPointSize(publicData.settings['pointsize'])
+        font.setPointSize(pDt.settings['pointsize'])
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -73,41 +74,59 @@ class OneWord(QWidget):
 
     # 查看中文
     def showCn(self):
-        self.pushButton.setText(publicData.words[self.word][1])
+        self.pushButton.setText(pDt.words[self.word][1])
         self.pushButton.setEnabled(False)
 
     # 不认识
     def btn_disunderstand(self):
-        publicData.words[self.word][0] += disunderstand
-        publicData.tp.sw.hard_words.append(self.word)
+        pDt.words[self.word][0] += disunderstand
+        pDt.hard_words[self.word] = pDt.streak
+        # 更新困难词
+        with open('hard_words.json', 'w', encoding='utf-8') as f:
+            json.dump(pDt.hard_words, f, ensure_ascii=False)
         self.close()
         del self
 
     # 模糊
     def btn_fuzzy(self):
-        publicData.words[self.word][0] += fuzzy
-        publicData.tp.sw.hard_words.append(self.word)
+        pDt.words[self.word][0] += fuzzy
+        pDt.hard_words[self.word] = pDt.streak
+        # 更新困难词
+        with open('hard_words.json', 'w', encoding='utf-8') as f:
+            json.dump(pDt.hard_words, f, ensure_ascii=False)
         self.close()
         del self
 
     # 认识
     def btn_know(self):
-        publicData.words[self.word][0] += know
-        if publicData.words[self.word][0] <= 0:
-            publicData.words[self.word][0] = 1
+        pDt.words[self.word][0] += know
+        if pDt.words[self.word][0] <= 0:
+            pDt.words[self.word][0] = 1
+        if self.word in pDt.hard_words:
+            pDt.hard_words[self.word] -= 1
+            if pDt.hard_words[self.word] == 0:
+                pDt.hard_words.pop(self.word)
+            # 更新困难词
+            with open('hard_words.json', 'w', encoding='utf-8') as f:
+                json.dump(pDt.hard_words, f, ensure_ascii=False)
         self.close()
         del self
 
     # 完全认识
     def del_word(self):
-        publicData.easy_words[self.word] = publicData.words[self.word][1]
+        pDt.easy_words[self.word] = pDt.words[self.word][1]
         with open('easy_words.json', 'w', encoding='utf-8') as f:
-            json.dump(publicData.easy_words, f, ensure_ascii=False)
-        publicData.tp.sw.del_words.append(self.word)
+            json.dump(pDt.easy_words, f, ensure_ascii=False)
+        if self.word in pDt.hard_words:
+            pDt.hard_words.pop(self.word)
+            # 更新困难词
+            with open('hard_words.json', 'w', encoding='utf-8') as f:
+                json.dump(pDt.hard_words, f, ensure_ascii=False)
+        pDt.tp.sw.del_words.append(self.word)
         self.close()
         del self
 
     def closeEvent(self, event):
-        publicData.tp.sw.ow_count -= 1
-        if publicData.tp.sw.ow_count == 0:
-            publicData.tp.sw.close()
+        pDt.tp.sw.ow_count -= 1
+        if pDt.tp.sw.ow_count == 0:
+            pDt.tp.sw.close()

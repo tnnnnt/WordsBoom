@@ -1,6 +1,9 @@
 settings = None
-words = None
+words = {}
 easy_words = None
+hard_words = None
 tp = None
 icon = None
+streak = 3  # 对于不认识或模糊的单词需要连续认识streak次才可以当作认识
 ttt = 60000  # ttt单位为毫秒，通常为60000，即1分钟，其他值为方便测试
+init_w = 100  # 初始权重
