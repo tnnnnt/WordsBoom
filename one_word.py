@@ -1,6 +1,6 @@
 import json
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont, QColor
+from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QSizePolicy, QLabel, QPushButton, QMessageBox
 import public_data as pdt
 
@@ -58,17 +58,6 @@ class OneWord(QWidget):
         self.pushButton_5.setSizePolicy(size_policy)
         self.pushButton_5.setFont(font)
         self.horizontalLayout.addWidget(self.pushButton_5)
-
-        # 给定数值，用于控制背景色
-        value = 0.1  # 假设这是一个范围在0到1之间的值
-
-        # 计算背景色，根据数值越大越红
-        red_value = int(value * 255)  # 将0-1的值映射到0-255的红色范围
-        background_color = QColor(red_value, 0, 0)  # 创建颜色对象
-
-        # 生成样式表，设置背景色
-        style_sheet = f'background-color: {background_color.name()};'
-        self.label.setStyleSheet(style_sheet)
 
         self.label.setText(self.word)
         self.pushButton.setText("查看中文")
