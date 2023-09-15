@@ -83,6 +83,16 @@ class SeSe(QDialog):  # 设置
         self.formLayout.setWidget(5, QFormLayout.LabelRole, self.btn_reset_w)
         self.btn_reset_w.clicked.connect(self.reset_w)
 
+        self.btn_sure = QPushButton("确认", self)
+        self.btn_sure.setFont(font)
+        self.formLayout.setWidget(6, QFormLayout.LabelRole, self.btn_sure)
+        self.btn_sure.clicked.connect(self.reset)
+
+        self.btn_cancel = QPushButton("取消", self)
+        self.btn_cancel.setFont(font)
+        self.formLayout.setWidget(6, QFormLayout.FieldRole, self.btn_cancel)
+        self.btn_cancel.clicked.connect(self.close)
+
     def reset_w(self):
         ans = QMessageBox.question(self, "警告", "此操作不可逆！\n是否坚持执行重置单词权重？", QMessageBox.Yes | QMessageBox.No,
                                    QMessageBox.No)
@@ -106,7 +116,7 @@ class SeSe(QDialog):  # 设置
             with open('easy_words.json', 'w', encoding='utf-8') as f:
                 json.dump({}, f, ensure_ascii=False)
 
-    def closeEvent(self, event):
+    def reset(self):
         pdt.settings['minute'] = self.sb_min.value()
         pdt.settings['number'] = self.sb_num.value()
         pdt.settings['pointsize'] = self.sb_size.value()
@@ -116,4 +126,7 @@ class SeSe(QDialog):  # 设置
             json.dump(pdt.settings, f, ensure_ascii=False)
         pdt.tp.setToolTip("单词弹弹弹\n间隔分钟数: " + str(pdt.settings['minute']) + "\n单次单词数: " + str(
             pdt.settings['number']) + "\n剩余单词数: " + str(len(pdt.words)))
+        self.close()
+
+    def closeEvent(self, event):
         pdt.tp.a2.setEnabled(True)
