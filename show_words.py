@@ -41,7 +41,7 @@ class ShowWords(QDialog):
             self.ow_count = len(pdt.hard_words) + min(count, len(words_en))
         else:
             for i in range(pdt.settings['number']):
-                self.verticalLayout_2.addWidget(OneWord(pdt.hard_words[i]))
+                self.verticalLayout_2.addWidget(OneWord(list(pdt.hard_words.keys())[i]))
             self.ow_count = pdt.settings['number']
         self.del_words = []
         self.setWindowModality(Qt.ApplicationModal)  # 设置为应用程序级别的模态对话框
