@@ -88,13 +88,20 @@ class SeSe(QDialog):  # 设置
         self.formLayout.setWidget(6, QFormLayout.LabelRole, self.btn_sure)
         self.btn_sure.clicked.connect(self.reset)
 
+        self.btn_start = QPushButton("启动", self)
+        self.btn_start.setFont(font)
+        self.btn_start.setEnabled(False)
+        self.formLayout.setWidget(7, QFormLayout.FieldRole, self.btn_start)
+        self.btn_start.clicked.connect(self.start_event)
+
         self.btn_cancel = QPushButton("取消", self)
         self.btn_cancel.setFont(font)
         self.formLayout.setWidget(6, QFormLayout.FieldRole, self.btn_cancel)
         self.btn_cancel.clicked.connect(self.close)
 
     def reset_w(self):
-        ans = QMessageBox.question(self, "警告", "此操作不可逆！\n是否坚持执行重置单词权重？", QMessageBox.Yes | QMessageBox.No,
+        ans = QMessageBox.question(self, "警告", "此操作不可逆！\n是否坚持执行重置单词权重？",
+                                   QMessageBox.Yes | QMessageBox.No,
                                    QMessageBox.No)
         if ans == QMessageBox.Yes:
             for word in pdt.words:
@@ -126,7 +133,14 @@ class SeSe(QDialog):  # 设置
             json.dump(pdt.settings, f, ensure_ascii=False)
         pdt.tp.setToolTip("单词弹弹弹\n间隔分钟数: " + str(pdt.settings['minute']) + "\n单次单词数: " + str(
             pdt.settings['number']) + "\n剩余单词数: " + str(len(pdt.words)))
-        self.close()
+        self.btn_start.setEnabled(True)
 
     def closeEvent(self, event):
+        pdt.tp.a1.setEnabled(True)
         pdt.tp.a2.setEnabled(True)
+
+    def start_event(self):
+        self.close()
+        pdt.tp.a1.setText('暂停')
+        pdt.tp.thread.start()
+        pdt.tp.select()

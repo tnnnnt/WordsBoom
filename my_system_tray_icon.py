@@ -1,16 +1,9 @@
-from PyQt5.QtCore import QTimer, QThread, QCoreApplication, QUrl
-from PyQt5.QtGui import QDesktopServices
+from PyQt5.QtCore import QTimer, QThread, QCoreApplication
 from PyQt5.QtWidgets import QSystemTrayIcon, QMenu, QAction
 import public_data as pdt
 from se_se import SeSe
 from show_words import ShowWords
 from work import Work
-
-
-def show_words_file():
-    file_path = "words.csv"
-    url = QUrl.fromLocalFile(file_path)
-    QDesktopServices.openUrl(url)
 
 
 class MySystemTrayIcon(QSystemTrayIcon):  # 系统托盘图标类
@@ -26,7 +19,6 @@ class MySystemTrayIcon(QSystemTrayIcon):  # 系统托盘图标类
         self.a1 = QAction('启动')
         self.a2 = QAction('设置')
         self.a3 = QAction('编辑词库')
-
         self.a_exit = QAction('退出')
 
         self.tpMenu.addAction(self.a1)
@@ -37,7 +29,7 @@ class MySystemTrayIcon(QSystemTrayIcon):  # 系统托盘图标类
 
         self.a1.triggered.connect(self.start_or_stop)
         self.a2.triggered.connect(self.set_set)
-        self.a3.triggered.connect(show_words_file)
+        self.a3.triggered.connect(self.show_words_file)
         self.a_exit.triggered.connect(self.quit_app)
 
         # 线程控制
@@ -62,9 +54,15 @@ class MySystemTrayIcon(QSystemTrayIcon):  # 系统托盘图标类
             self.thread.wait()
 
     def set_set(self):
+        self.a1.setEnabled(False)
         self.a2.setEnabled(False)
         self.se = SeSe()
         self.se.show()
+
+    def show_words_file(self):
+        self.a3.setEnabled(False)
+        pdt.vw.show()
+        pdt.vw.exec()
 
     def quit_app(self):
         # 关闭窗体程序

@@ -3,14 +3,16 @@ import sys
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
 import public_data as pdt
+from word_editing import WordEditing
+from viewer_window import ViewerWindow
 from my_system_tray_icon import MySystemTrayIcon
 import csv
 
 
 def on_exit():
     # 在这个槽函数中执行你想要的操作
-    with open('run.txt', 'w', encoding='utf-8') as f:
-        f.write('0')  # 将程序运行标记重置为0
+    with open('run.txt', 'w', encoding='utf-8') as file:
+        file.write('0')  # 将程序运行标记重置为0
 
 
 if __name__ == '__main__':
@@ -36,8 +38,13 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
     pdt.icon = QIcon('img/icon.png')
+
+    pdt.word_editing = WordEditing()
+    pdt.vw = ViewerWindow()
+
     pdt.tp = MySystemTrayIcon()
-    pdt.tp.show()
+    pdt.tp.set_set()
     pdt.tp.showMessage('单词弹弹弹', '欢迎使用单词弹弹弹！', pdt.icon)
+    pdt.tp.show()
     app.aboutToQuit.connect(on_exit)
     sys.exit(app.exec_())
